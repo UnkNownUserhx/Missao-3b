@@ -6,107 +6,111 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
-        enunciado: "Você está no saque, qual é a sua estratégia?",
+        enunciado: "Você precisa escolher uma arquitetura para um novo sistema web. Qual abordagem você escolhe?",
         alternativas: [
             {
-                texto: "Sacar uma bola forte e rápida.",
-                afirmacao: "O saque forte e rápido passou a bola pelo bloqueio e tocou o chão da quadra adversária. Ponto para seu time!",
+                texto: "Arquitetura monolítica.",
+                afirmacao: "A arquitetura monolítica é mais simples de implementar inicialmente, mas pode tornar o sistema mais difícil de escalar e manter no futuro. Depende da complexidade do sistema.",
+                pontos: 0
+            },
+            {
+                texto: "Arquitetura de microsserviços.",
+                afirmacao: "A arquitetura de microsserviços facilita a escalabilidade e manutenção do sistema, mas pode aumentar a complexidade de desenvolvimento e requer mais experiência da equipe. Boa escolha para sistemas complexos.",
+                pontos: 1
+            }
+        ]
+    },
+    {
+        enunciado: "Sua equipe está enfrentando dificuldades para manter a qualidade do código. O que você faz?",
+        alternativas: [
+            {
+                texto: "Implementa revisões de código e integrações contínuas.",
+                afirmacao: "A implementação de revisões de código e integrações contínuas ajuda a manter a qualidade do código e detectar problemas cedo. Excelente prática!",
                 pontos: 1
             },
             {
-                texto: "Sacar uma bola curta e lenta.",
-                afirmacao: "O saque curto e lento foi levantado pelo adversário, resultando em um ataque bem-sucedido. Ponto para o adversário.",
+                texto: "Aumenta o prazo de entrega para permitir mais testes manuais.",
+                afirmacao: "Aumentar o prazo pode aliviar a pressão temporariamente, mas não resolve o problema subjacente de manutenção de qualidade. Uma abordagem menos eficaz.",
                 pontos: 0
             }
         ]
     },
     {
-        enunciado: "O adversário fez um ataque forte. O que você faz?",
+        enunciado: "Você precisa escolher um banco de dados para um sistema de alta performance. Qual você escolhe?",
         alternativas: [
             {
-                texto: "Tenta fazer um bloqueio duplo.",
-                afirmacao: "O bloqueio duplo foi eficiente e a bola voltou para a quadra adversária. Ponto para seu time!",
-                pontos: 1
+                texto: "Banco de dados relacional (SQL).",
+                afirmacao: "Um banco de dados relacional é uma boa escolha para sistemas que precisam de consistência e integridade transacional, mas pode não ser ideal para sistemas que exigem alta escalabilidade horizontal.",
+                pontos: 0
             },
             {
-                texto: "Faz uma defesa baixa e rápida.",
-                afirmacao: "A defesa baixa e rápida foi boa, mas a bola foi para fora. Ponto para o adversário.",
-                pontos: 0
-            }
-        ]
-    },
-    {
-        enunciado: Seu time está organizando um ataque. Qual é a sua jogada?",
-        alternativas: [
-            {
-                texto: "Levanta a bola para o atacante principal.",
-                afirmacao: "O levantamento para o atacante principal resultou em um ataque certeiro. Ponto para seu time!",
+                texto: "Banco de dados NoSQL.",
+                afirmacao: "Um banco de dados NoSQL é uma excelente escolha para sistemas que requerem alta escalabilidade e flexibilidade de schema, mas pode não oferecer o mesmo nível de consistência transacional que um banco relacional.",
                 pontos: 1
-            },
-            {
-                texto: "Faz um toque surpresa para o fundo da quadra adversária.",
-                afirmacao: "O toque surpresa para o fundo da quadra adversária foi interceptado. Ponto para o adversário.",
-                pontos: 0
             }            
         ]
     },
     {
-        enunciado: "A bola está vindo alta e perto da rede. O que você faz?",
+        enunciado: "Um cliente solicita uma nova funcionalidade crítica com um prazo curto. Como você lida com isso?",
         alternativas: [
             {
-                texto: "Tenta um ataque potente.",
-                afirmacao: "O ataque potente resultou em uma bola fora. Ponto para o adversário.",
+                texto: "Aceita o prazo e adiciona a nova funcionalidade rapidamente.",
+                afirmacao: "Adicionar rapidamente pode levar a problemas de qualidade e aumentar a dívida técnica. Uma solução que precisa de cuidado.",
                 pontos: 0
             },
             {
-                texto: "Faz um toque sutil para enganar o bloqueio.",
-                afirmacao: "O toque sutil enganou o bloqueio e a bola caiu na quadra adversária. Ponto para seu time!",
+                texto: "Negocia o prazo ou simplifica o escopo da funcionalidade.",
+                afirmacao: "Negociar prazos ou simplificar o escopo é uma abordagem sensata para manter a qualidade e evitar dívida técnica. Boa escolha!",
                 pontos: 1
             }
         ]
     },
     {
-        enunciado: "Você está recebendo o saque do adversário. Como você responde?",
+        enunciado: "Sua equipe está dividida entre usar Scrum ou Kanban. Como você decide?",
         alternativas: [
             {
-                texto: "Recebe a bola com um passe alto para organizar a jogada.",
-                afirmacao: "O passe alto organizou a jogada e resultou em um bom ataque. Ponto para seu time!",
+                texto: "Escolhe Scrum para fornecer estrutura e sprints definidos.",
+                afirmacao: "Scrum é ótimo para equipes que precisam de um framework estruturado e ciclos de entrega curtos. Excelente para projetos bem definidos.",
                 pontos: 1
             },
             {
-                texto: "Recebe a bola com uma manchete baixa e rápida.",
-                afirmacao: "A manchete baixa e rápida resultou em um erro e a bola não passou. Ponto para o adversário.",
-                pontos: 0
+                texto: "Escolhe Kanban para permitir flexibilidade e fluxo contínuo.",
+                afirmacao: "Kanban é ótimo para equipes que preferem um fluxo contínuo e adaptação rápida às mudanças. Ideal para equipes que lidam com tarefas variáveis.",
+                pontos: 1
             }
         ]
     }
 ];
 
-const atual = 0;
+let atual = 0;
 let perguntaAtual;
 let historiaFinal = "";
 
-function mostraPergunta(){
+function mostraPergunta() {
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
     mostraAlternativas();
 }
 
-function mostraAlternativas(){
-    for(const alternativa of perguntaAtual.alternativas){
+function mostraAlternativas() {
+    for (const alternativa of perguntaAtual.alternativas) {
         const botaoAlternativas = document.createElement("button");
-        botaoAlternativas.textContent = alternativas.texto;
+        botaoAlternativas.textContent = alternativa.texto;
         botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
-        caixaAlternativas.appendChild(botaoAlternativas)
+        caixaAlternativas.appendChild(botaoAlternativas);
     }
 }
 
-function respostaSelecionada(opcaoSelecionada){
+function respostaSelecionada(opcaoSelecionada) {
     const afirmacao = opcaoSelecionada.afirmacao;
     historiaFinal = afirmacao;
     atual++;
-    mostraPergunta();
+    if (atual < perguntas.length) {
+        mostraPergunta();
+    } else {
+        caixaResultado.textContent = "Você concluiu o quiz! " + historiaFinal;
+    }
 }
 
 mostraPergunta();
